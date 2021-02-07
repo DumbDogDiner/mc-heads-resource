@@ -1,0 +1,12 @@
+{
+  "packs": {
+    "hermitcraft": [
+      "wandering trades",
+      "treasure gems"
+    ],
+    "mobs": [
+      "more mob heads"
+    ]
+  },
+  "version": "1.16"
+}
