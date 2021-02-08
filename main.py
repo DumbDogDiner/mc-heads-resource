@@ -183,9 +183,7 @@ def main():
             os.chdir(origdir)
             if (not os.path.exists('./out/')):
                 os.mkdir('./out')
-            if not os.path.exists('./out/main/'):
-                os.mkdir('./out/main')
-            json.dump(textures_data, open('./out/main/textures.json', 'w'))
+            json.dump(textures_data, open('./out/textures.json', 'w'))
 
 
 if __name__ == '__main__':
