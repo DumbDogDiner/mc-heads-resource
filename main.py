@@ -109,7 +109,7 @@ def mhf():
     textures = dict()
     resp = [s.replace('*','').strip() for s in requests.get("https://pastebin.com/raw/5mug6EBu").text.splitlines() if (s and not(s.startswith(';')))]
     for line in resp:
-        print(line)
+        print(line.upper())
         resp = requests.get(webapi + line.strip()).json()
         textures[line.upper().replace('MHF_','')] = (resp['textures']['raw']['value'])
 
@@ -175,7 +175,9 @@ def main():
             os.chdir(origdir)
             if (not os.path.exists('./out/')):
                 os.mkdir('./out')
-            json.dump(textures_data, open('./out/textures.json', 'w'))
+            if not os.path.exists('./out/main/'):
+                os.mkdir('./out/main')
+            json.dump(textures_data, open('./out/main/textures.json', 'w'))
 
 
 if __name__ == '__main__':
