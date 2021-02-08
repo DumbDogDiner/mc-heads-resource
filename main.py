@@ -117,9 +117,10 @@ def mhf():
     textures = dict()
     resp = [s.replace('*','').strip() for s in requests.get("https://pastebin.com/raw/5mug6EBu").text.splitlines() if (s and not(s.startswith(';')))]
     for line in resp:
-        print(line.upper())
+        newname = line.upper().replace('MHF_','')
+        print(newname)
         resp = requests.get(webapi + line.strip()).json()
-        textures[line.upper().replace('MHF_','')] = fixtexture(resp['textures']['raw']['value'])
+        textures[newname] = fixtexture(resp['textures']['raw']['value'])
 
     return textures
 
