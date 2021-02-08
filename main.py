@@ -1,6 +1,14 @@
-import requests, re, urllib.parse, json, zipfile, io, os, fnmatch, yaml, nbtlib, glob
+import requests, re, urllib.parse, json, zipfile, io, os, fnmatch, yaml, nbtlib, glob, base64
 
 webapi = "https://api.ashcon.app/mojang/v2/user/"
+
+def fixtexture(input):
+    missing_padding = len(input) % 4
+    if missing_padding:
+        input += '=' * (4 - missing_padding)
+
+    return input
+
 
 def gems(gemsfolder):
     for filename in glob.glob(os.path.join(gemsfolder, 'data', 'minecraft', 'loot_tables', 'chests', '**', '*.json'),
@@ -25,7 +33,7 @@ def gems(gemsfolder):
                     print()
                     print("wtf")
                 # print()
-    textures = dict((name, texture) for (name, texture) in textures)
+    textures = dict((name, fixtexture(texture)) for (name, texture) in textures)
     # print(textures)
     return textures
 
@@ -57,7 +65,7 @@ def process_block(nbttag):
 
     texture = tag['SkullOwner']['Properties']['textures'][0]['Value']
     print(name)
-    return name, str(texture)
+    return name, fixtexture(str(texture))
 
 def mobheads(headsfolder):
     textures = list()
@@ -103,7 +111,7 @@ def process_head(nbttag):
 
     texture = tag['SkullOwner']['Properties']['textures'][0]['Value']
     print(name)
-    return name, texture
+    return name, fixtexture(texture)
 
 def mhf():
     textures = dict()
@@ -111,7 +119,7 @@ def mhf():
     for line in resp:
         print(line.upper())
         resp = requests.get(webapi + line.strip()).json()
-        textures[line.upper().replace('MHF_','')] = (resp['textures']['raw']['value'])
+        textures[line.upper().replace('MHF_','')] = fixtexture(resp['textures']['raw']['value'])
 
     return textures
 
