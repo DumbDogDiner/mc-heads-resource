@@ -40,12 +40,12 @@ jobs:
 #          echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
 #          echo "name:        ${{ steps.import_gpg.outputs.name }}"
 #          echo "email:       ${{ steps.import_gpg.outputs.email }}"
-#      - name: Deploy Docs
-#        uses: JamesIves/github-pages-deploy-action@3.7.1
-#        with:
-#          ACCESS_TOKEN: ${{ secrets.DOCS_GH_TOKEN }}
-#          BRANCH: gh-pages
-#          FOLDER: "web"
-#          CLEAN: false # don't clean so we can also use tags
-#          GIT_CONFIG_NAME: "StickyAPI Docs Deployment"
-#          GIT_CONFIG_EMAIL: ${{ secrets.DOCS_GH_EMAIL }}
+      - name: Deploy Docs
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          ACCESS_TOKEN: ${{ secrets.DOCS_GH_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: "out"
+          CLEAN: false # don't clean so we can also use tags
+          GIT_CONFIG_NAME: "Heads generation deployment"
+          GIT_CONFIG_EMAIL: ${{ secrets.DOCS_GH_EMAIL }}
